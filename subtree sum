@@ -1,0 +1,17 @@
+# This approach uses postorder tree traversal to find subtree sum in bottom up manner.
+
+def postorder(node):
+    if node:
+        # Storing the left subtree sum
+        l = postorder(node.left)
+        # Storing the right subtree sum
+        r = postorder(node.right)
+        
+        # node.val becomes sum of left subtree, right subtree and node.val
+        node.val = l + r + node.val
+        
+        return node.val
+    return 0
+    
+# sum of all the nodes of the tree
+root_sum = postorder(root)
