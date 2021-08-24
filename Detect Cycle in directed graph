@@ -1,0 +1,48 @@
+class Solution:
+    def detectCycle(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # white arr stores all vertices which are not visited
+        # white[i] = True means "i"th vertex has visited.
+        
+        white = [False for i in range(numCourses)]
+        
+        # gray arr stores all vertices which are currently being visited.
+        # gray[i] = True means "i"th vertex now belongs to gray arr.
+        
+        gray = [False for i in range(numCourses)]
+        
+        adj = [[] for i in range(numCourses)]
+        for i in prerequisites:
+            adj[i[0]].append(i[1])
+            
+        def dfs(cur, white, gray):
+            # Now "cur" now does not belong to white arr. 
+            white[cur] = True
+            
+            # Now "cur" belongs to gray arr.
+            gray[cur] = True
+            
+            # Visiting all children of cur.
+            for child in adj[cur]:
+                if white[child] == False:
+                    if dfs(child, white, gray) == True:
+                        return True
+                
+                # If child is found in gray, then, the cycle is found.
+                elif gray[child] == True:
+                    return True
+            
+            # Now, all the children of cur has been visited, so , now, cur does not belong to gray arr.
+            gray[cur] = False
+            
+            # No cycle is found
+            return False
+        
+        for i in range(numCourses):
+            if white[i] == False:
+                # Cycle is found
+                if dfs(i, white, gray) == True:
+                    return True
+        
+        # No cycle found in the graph
+        return False
+        
