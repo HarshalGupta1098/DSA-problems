@@ -1,4 +1,4 @@
-# This solution uses Adjacency List
+# This solution uses DFS (Adjacency List)
 
 class Solution:
     def findCircleNum(self, isConnected):
