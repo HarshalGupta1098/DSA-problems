@@ -1,0 +1,38 @@
+# This solution uses Adjacency List
+
+class Solution:
+    def findCircleNum(self, isConnected):
+        # Total vertices in the graph
+        n = len(isConnected)
+        
+        # To keep track of visited vertices
+        visited = [False for i in range(n)]
+        
+        # Adjacency list
+        adj = [[] for i in range(n)]
+        
+        # Creating adjacency list
+        for i in range(n):
+            for j in range(i+1, n):
+                if isConnected[i][j]:
+                    adj[i].append(j)
+                    adj[j].append(i)
+        
+        # count will keep the number of connected components in the graph
+        count = 0
+        
+        def dfs(node):
+            visited[node] = True
+            
+            for child in adj[node]:
+                if visited[child] == False:
+                    dfs(child)
+                    
+
+            
+        for i in range(n):
+            # Everytime I call dfs here, I know, this will be next connected component.
+            if visited[i] == False:
+                count += 1
+                dfs(i)
+        return count
