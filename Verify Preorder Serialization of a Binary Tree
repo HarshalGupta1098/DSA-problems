@@ -1,0 +1,26 @@
+# Approach #
+# every non leaf node has 
+# in-degree = 1, out-degree = 2
+# and, every leaf node has 
+# in-degree = 1, out-degree = 0
+
+# So, everytime we find a non-leaf node, subtract 1 and then add 2.
+# And everytime we find a leaf node, subtract 1.
+# And one more thing, at any point, 'n' can never be negative or zero, when we are still itertaing the preorder array.
+
+# At last, n should be zero. 
+# https://www.youtube.com/watch?v=_mbnPPHJmTQ
+
+class Solution:
+    def isValidSerialization(self, preorder: str) -> bool:
+        n = 1
+        preorder = preorder.split(',')
+        for i in preorder:
+            if n <= 0:
+                return False
+            if i == '#':
+                n -= 1
+            else:
+                n -= 1
+                n += 2
+        return n == 0
