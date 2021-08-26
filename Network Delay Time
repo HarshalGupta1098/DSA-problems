@@ -1,0 +1,34 @@
+import heapq
+
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        adj = [[] for i in range(n+1)]
+        
+        for i in range(len(times)):
+            u, v, w = times[i]
+            adj[u].append([v, w])
+        
+        visited = [False for i in range(n+1)]
+        costs = [float('inf') for i in range(n+1)]
+        costs[k] = 0
+        
+        pq = []
+        heapq.heappush(pq, (k, 0))
+        
+        while pq:
+            print(pq)
+            node, cost = heapq.heappop(pq)
+            visited[node] = True
+            
+            for child in adj[node]:
+                v, w = child
+                if cost + w < costs[v]:
+                    costs[v] = cost + w
+                    heapq.heappush(pq, (v, costs[v]))
+                
+        for i in range(1, n+1):
+            if visited[i] == False:
+                return -1
+        
+        
+        return max(costs[1:])
