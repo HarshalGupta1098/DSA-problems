@@ -2,6 +2,7 @@ import heapq
 
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        # Dijkstra solution
         adj = [[] for i in range(n+1)]
         
         for i in range(len(times)):
@@ -32,3 +33,47 @@ class Solution:
         
         
         return max(costs[1:])
+        
+        
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------        
+        
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        # BFS solution
+        visited = [False for i in range(n+1)]
+        costs = [float('inf') for i in range(n+1)]
+        
+        adj = [[] for i in range(n+1)]
+        for i in times:
+            u, v, w = i
+            adj[u].append([v, w])
+            
+        q = [[k, 0]]
+        costs[k] = 0
+        visited[k] = True
+        
+        while q:
+            qq = []
+            for i in q:
+                node, cost = i
+                
+                visited[node] = True
+                
+                for child in adj[node]:
+                    v, w = child
+                    if cost + w < costs[v]:
+                        costs[v] = cost+w
+                        
+                        qq.append([v, costs[v]])
+                q = qq
+        
+        for i in range(1, n+1):
+            if visited[i] == False:
+                return -1
+        
+        return max(costs[1:])
+                
+                
+            
+        
+        
