@@ -1,0 +1,23 @@
+# Approach 
+# Approach is based on the fact that 
+# if there is even 1 pair of characters which is not same AND
+# if the length of 'a' and 'b' is not same,
+
+# then, we can return max(len(a), len(b))
+
+# otherwise, we can return -1
+
+class Solution:
+    def findLUSlength(self, a: str, b: str) -> int:
+        i = j = 0
+        while i < len(a) and j < len(b):
+            if a[i] == b[j]:
+                i, j = i+1, j+1
+            else:
+                return max(len(a), len(b))
+            
+        if i < len(a) or j < len(b):
+            return max(len(a), len(b))
+
+        return -1
+   
