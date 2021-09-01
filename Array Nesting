@@ -1,0 +1,23 @@
+# I think you can use this to find the largest connected component from a list of connected components.
+# Approach is mark the visited nodes, so, we do dfs only for unvisited nodes.
+# Just iterate the array and do dfs for unvisited nodes.
+
+class Solution:
+    def arrayNesting(self, nums: List[int]) -> int:
+        n = len(nums)
+        visited = [False for i in range(n)]
+        
+        def dfs(node):
+            nonlocal count
+            if visited[node] == False:
+                visited[node] = True
+                count += 1
+                dfs(nums[node])
+            return count
+        
+        ans = 0
+        for i in range(n):
+            if visited[i] == False:
+                count = 0 
+                ans = max(ans, dfs(i))
+        return ans
