@@ -1,0 +1,31 @@
+# Approach -> 
+# -> Just sort the odd(in ascending order), 
+# -> even(in descending order) numbers,
+# -> now, notice that you need to fill the odd numbers where 
+# -> there is an odd number in the input array. 
+# -> Same for even.
+t = int(input())
+for _ in range(t):
+    n = int(input())
+    arr = list(map(int, input().split()))
+    
+    odd, even = [], []
+    for i in arr:
+        if i&1:
+            odd.append(i)
+        else:
+            even.append(i)
+            
+    odd.sort()
+    even.sort(reverse = True)
+    j = k = 0
+    for i in range(n):
+        if arr[i]&1:
+            arr[i] = odd[j]
+            j += 1
+        else:
+            arr[i] = even[k]
+            k += 1
+            
+    print(f"Case #{_+1}: ", end="")
+    print(*arr)
