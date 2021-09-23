@@ -1,0 +1,48 @@
+# Approach ->
+# -> 00000 -> 0
+# -> 00001 -> 1
+# -> 00010 -> 2
+# -> 00011 -> 3
+# -> 00100 -> 4
+# -> 00101 -> 5
+# -> 00110 -> 6
+# -> 00111 -> 7
+# -> 01000 -> 8
+# -> 01001 -> 9
+# -> 01010 -> 10
+# -> 01011 -> 11
+# -> 01100 -> 12
+# -> 01101 -> 13
+# -> 01110 -> 14
+# -> 01111 -> 15
+# -> 10000 -> 16
+
+# -> Let n = 11
+# -> First bit occurs in this pattern -> 01 01 01 01 01 01 ...
+# -> So, if we know how many such pairs are and multiply with (half of the current power of 2) [because 1 only occurs for half times], 
+# -> then, we have set bits for those pairs. 
+# -> Hence formula: (n//power_2)*(power_2//2)
+
+# -> Now, to find set bits for remaining pairs, 
+# -> first find remianing numbers and then subtract half of the zeros and add 1
+
+# -> Hence formula: (n%power_2 - power_2//2 + 1), and we will add this value, iff, this value > 0 [because we already have set bits from previous formula
+# -> now, we don't want to reduce those set bits.] 
+
+class Solution:
+    #Function to return sum of count of set bits in the integers from 1 to n.
+    def countSetBits(self,n):
+    
+        # Getting binary form of 'n', just to find total bits in 'n'.
+        x = bin(n).replace("0b", "")
+        ans = 0
+        power_2 = 2
+        for i in range(len(x)-1, -1, -1):
+            ans += (n//power_2)*(power_2//2)
+            val = n%power_2 - power_2//2 + 1
+            if val > 0:
+                ans += val
+                
+            power_2 <<= 1
+        
+        return ans
