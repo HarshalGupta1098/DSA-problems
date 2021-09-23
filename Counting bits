@@ -3,12 +3,12 @@
 # -> Let N = 7
 # -> 7 = 111 (binary form)
 # -> 7/2 = 3 = 011 (binary form)
-# -> <b>set bits in 7 = 1 + set bits in 3</b>
+# -> set bits in 7 = 1 + set bits in 3
 
 # Let N = 10
 # -> 10 = 1010 (binary form)
 # -> 10/2 = 5 = 101 (binary form)
-# -> <b>set bits in 10 = set bits in 5</b>
+# -> set bits in 10 = set bits in 5
 
 # SOURCE: https://www.youtube.com/watch?v=awxaRgUB4Kw
 
