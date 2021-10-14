@@ -1,0 +1,22 @@
+class Solution:
+    
+    ##Complete this function
+    #Function to swap odd and even bits.
+    def swapBits(self,n):
+        #Your code here
+        # to get all even bits
+        even_bits = n&0xAAAAAAAA
+        
+        # to get all odd bits
+        odd_bits = n&0x55555555
+        
+        print(even_bits)
+        print(odd_bits)
+        
+        even_bits >>= 1
+        odd_bits <<= 1
+        
+        print(even_bits)
+        print(odd_bits)
+        
+        return even_bits|odd_bits
