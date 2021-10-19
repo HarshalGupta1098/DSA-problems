@@ -1,0 +1,42 @@
+APPROACH: ->
+-> Find all the heights in arr which are >= arr[i], going from left to right.
+-> Do the same when going right to left.
+-> Now, you know for each 'height' in arr, total number of buildings whose height is >= your building height.
+-> ans = max(ans, arr[i]*(left[i]+right[i])-arr[i]) as you are including arr[i] 2 times in the answer. 
+
+def getMaxArea(arr):
+        #code here
+        n = len(arr)
+        
+        # To find all the height that are >= arr[i] from left to right
+        left = [1]*n
+        for i in range(n-2, -1, -1):
+            if arr[i] <= arr[i+1]:
+                gap = left[i+1]+1
+                left[i] = gap
+                while i+gap < n:
+                    if arr[i] <= arr[i+gap]:
+                        left[i] += left[i+gap]
+                        gap += left[i+gap]
+                    else:
+                        break
+         
+        # To find all the height that are >= arr[i] from right to left
+        right = [1]*n
+        for i in range(1, n):
+            if arr[i] <= arr[i-1]:
+                gap = right[i-1]+1
+                right[i] = gap
+                while i-gap >= 0:
+                    if arr[i] <= arr[i-gap]:
+                        right[i] += right[i-gap]
+                        gap += right[i-gap]
+                    else:
+                        break
+
+        # print(left)
+        # print(right)
+        ans = 0
+        for i in range(len(arr)):
+            ans = max(ans, arr[i]*(left[i]+right[i])-arr[i])
+        return ans
